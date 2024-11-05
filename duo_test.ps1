@@ -3,8 +3,10 @@ $registryPaths = @(
     "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
 )
 
+$AppName = "Duo"
+
 foreach ($path in $registryPaths) {
-    $MyApp = Get-ItemProperty -Path $path -ErrorAction SilentlyContinue | Where-Object { $_.DisplayName -match $AppName }
+    $MyApp = (Get-ItemProperty -Path $path -ErrorAction SilentlyContinue | Where-Object { $_.DisplayName -match $AppName }).Replace(' ', '')
     if ($MyApp) { break }
  }
 
